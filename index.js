@@ -6,8 +6,20 @@ const PORT = 3000;
 
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("Halo dari Express!");
+});
+
 app.get('/10kb', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'html', '10kb.html'));
+  res.sendFile(path.join(__dirname, 'html', '10kb.html'));
+});
+
+app.get('/100kb', (req, res) => {
+  res.sendFile(path.join(__dirname, 'html', '100kb.html'));
+});
+
+app.get('/1000kb', (req, res) => {
+  res.sendFile(path.join(__dirname, 'html', '1000kb.html'));
 });
 
 app.listen(PORT, () => {
