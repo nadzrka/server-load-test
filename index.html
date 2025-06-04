@@ -1,10 +1,22 @@
-<script>
-  fetch("https://nadzira-load-test.glitch.me/100kb")
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById("output").innerHTML = html;
-    })
-    .catch(err => {
-      document.getElementById("output").textContent = "Error: " + err.message;
-    });
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fetch HTML</title>
+</head>
+<body>
+  <h1>Hasil Fetch HTML</h1>
+  <div id="output">Memuat...</div>
+
+  <script>
+    fetch("https://nadzira-load-test.glitch.me/100kb")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("output").innerHTML = html;
+      })
+      .catch(err => {
+        document.getElementById("output").textContent = "Error: " + err.message;
+      });
+  </script>
+</body>
+</html>
