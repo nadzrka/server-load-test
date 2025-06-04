@@ -1,22 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Fetch HTML as Text</title>
-</head>
-<body>
-  <h1>Isi file HTML dari Glitch</h1>
-  <pre id="output">Loading...</pre>
-
-  <script>
-    fetch("https://nadzira-load-test.glitch.me/100kb")
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("output").textContent = html;
-      })
-      .catch(err => {
-        document.getElementById("output").textContent = "Error: " + err.message;
-      });
-  </script>
-</body>
-</html>
+<script>
+  fetch("https://nadzira-load-test.glitch.me/100kb")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("output").innerHTML = html;
+    })
+    .catch(err => {
+      document.getElementById("output").textContent = "Error: " + err.message;
+    });
+</script>
