@@ -1,22 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Fetch HTML</title>
+  <meta charset="UTF-8" />
+  <title>HTML Load Test Dashboard</title>
+  <style>
+    body { font-family: sans-serif; max-width: 700px; margin: 2rem auto; padding: 1rem; }
+    button { margin: 0.25rem; padding: 0.5rem 1rem; font-size: 1rem; }
+    #output { border: 1px solid #ccc; padding: 1rem; margin-top: 1rem; white-space: pre-wrap; background: #f9f9f9; }
+    .log { font-size: 0.9rem; color: gray; margin-top: 0.5rem; }
+  </style>
 </head>
 <body>
-  <h1>Hasil Fetch HTML</h1>
-  <div id="output">Memuat...</div>
+  <h1>HTML Load Test Dashboard</h1>
+  <p>Pilih salah satu ukuran file HTML di bawah ini untuk melakukan pengambilan dan render:</p>
+
+  <button onclick="loadHTML('10kb')">Fetch 10KB</button>
+  <button onclick="loadHTML('100kb')">Fetch 100KB</button>
+  <button onclick="loadHTML('1000kb')">Fetch 1000KB</button>
+
+  <div class="log" id="log"></div>
+  <div id="output">Output akan tampil di sini</div>
 
   <script>
-    fetch("https://nadzira-load-test.glitch.me/100kb")
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("output").innerHTML = html;
-      })
-      .catch(err => {
-        document.getElementById("output").textContent = "Error: " + err.message;
-      });
+    async function loadHTML(size) {
+      const output = document.getElementById("output");
+      const log = document.getElementById("log");
+      output.textContent = "⏳ Memuat...";
+      log.textContent = "";
+
+      const start = performance.now();
+
+      try {
+        const res = await fetch(`/api/${size}`);
+        const html = await res.text();
+        const end = performance.now();
+        output.innerHTML = html;
+        log.textContent = `✅ Berhasil fetch ${size}.html dalam ${Math.round(end - start)} ms`;
+      } catch (err) {
+        output.textContent = "❌ Error: " + err.message;
+        log.textContent = `⛔ Gagal fetch ${size}.html`;
+      }
+    }
   </script>
 </body>
 </html>
